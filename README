@@ -1,35 +1,17 @@
-SkyDragon Kernel for OnePlus 7 Pro
-==================================
+SkyDragon Kernel for OnePlus 7/7 Pro for AOSP compiling
+=======================================================
 
-For this repo, you can clone as-is to 'sm8150' folder
-git clone https://github.com/holyangel/sm8150.git
+For this repo, you can clone as-is to 'kernel/oneplus/sm8150' folder
+git clone https://github.com/holyangel/sm8150.git -b aospc kernel/oneplus/sm8150
 
-I am currently using QCOM SnapDragon Clang v8.0.6 and Xanaxdroid Aarch64-8.0 toolchains. 
+or add to your manifest.
 
-https://developer.qualcomm.com/software/snapdragon-llvm-compiler-android/tools
+Ensure in your device BoardConfig.mk
+TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_SOURCE := kernel/oneplus/sm8150
+TARGET_KERNEL_CONFIG := SD_defconfig
 
-https://bitbucket.org/xanaxdroid/aarch64-8.0.git
-
-You will need to edit lines 315 and 316 of Makefile to point to where you have synced the aarch64 toolchain.
-You will need to edit the build scripts to point to where you have synced the snapdragon llvm toolchain.
-
-3 Build scripts are provided for you to build, you will need to edit the variable paths in them to point to your sources.
-
-1) build.sh - removes out folder and compiled files, creates a full flashable kernel zip for you in 'upload' folder.
-	Use this when you're sure the kernel compiles fine after having ran run.sh.
-
-2) run.sh - removes out folder and only compiles kernel at out/arch/arm64/boot
-	Use this for first test builds to make sure it compiles fine without error's.
-
-3) rc.sh - used to recompile without cleaning anything(usually if you need to fix things and finish compiling to test if it works)
-	Use this if run.sh fails and you can't see what the error is. 
-	Also used when you think you fixed the problem and want to check if it compiles fine now.
-
-build.sh/run.sh will use max current threads, rc.sh uses 1 thread to make it easier to catch any error's that may pop up.
-
-You will also want to create a folder named 'upload' at sm8150 source root to hold any zips that get generated.
-
-'Changelog' file in root of kernel source also needs edited to point to your kernel source directory
+That's It!
 
 
 =============================================
