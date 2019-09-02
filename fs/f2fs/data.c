@@ -578,6 +578,9 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
 			  REQ_NOENCRYPT :
 			  0));
 
+	if (!f2fs_is_valid_blkaddr(sbi, blkaddr, DATA_GENERIC))
+		return ERR_PTR(-EFAULT);
+
 	if (f2fs_encrypted_file(inode) &&
 		!fscrypt_using_hardware_encryption(inode))
 		post_read_steps |= 1 << STEP_DECRYPT;
